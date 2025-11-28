@@ -1,0 +1,9 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    scripts:
+      - name: Build app
+        script: |
+          xcodebuild -project WelfareStoreApp.xcodeproj -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean build
+    artifacts:
+      - build/ios/ipa/*.ipa
