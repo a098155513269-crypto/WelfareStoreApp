@@ -1,0 +1,37 @@
+import SwiftUI
+
+struct AddProductView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var vm: StoreViewModel
+    
+    @State private var name = ""
+    @State private var cost = ""
+    @State private var price = ""
+    @State private var stock = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("新增商品").font(.title2)
+            TextField("商品名稱", text: $name)
+                .textFieldStyle(.roundedBorder)
+            TextField("成本價", text: $cost)
+                .keyboardType(.numberPad)
+                .textFieldStyle(.roundedBorder)
+            TextField("售價", text: $price)
+                .keyboardType(.numberPad)
+                .textFieldStyle(.roundedBorder)
+            TextField("庫存", text: $stock)
+                .keyboardType(.numberPad)
+                .textFieldStyle(.roundedBorder)
+            
+            Button("新增") {
+                if let c = Int(cost), let p = Int(price), let s = Int(stock) {
+                    vm.addProduct(name: name, cost: c, price: p, stock: s)
+                    dismiss()
+                }
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding()
+    }
+}
