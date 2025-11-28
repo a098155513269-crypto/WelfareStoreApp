@@ -11,10 +11,10 @@ workflows:
           echo "No dependencies to install"
       - name: Build app
         script: |
-          xcodebuild -workspace WelfareStoreApp.xcworkspace -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean build
+          xcodebuild -workspace WelfareStoreApp -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean build
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
       email:
         recipients:
-          - your_email@example.com
+          -a098155513269@gmail.com
