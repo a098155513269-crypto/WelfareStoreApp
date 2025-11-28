@@ -1,0 +1,27 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 60
+    environment:
+      vars:
+        FLAVOR: "prod"
+    scripts:
+      - name: Install dependencies
+        script: |
+          # 如果你有 CocoaPods
+          if [ -f "Podfile" ]; then
+            pod install
+          fi
+      - name: Build app
+        script: |
+          # Build archive
+          xcodebuild -workspace WelfareStoreApp.xcworkspace -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean archive -archivePath $PWD/build/WelfareStoreApp.xcarchive
+          
+          # Export IPA
+          xcodebuild -exportArchive -archivePath $PWD/build/WelfareStoreApp.xcarchive -exportPath $PWD/build/ios/ipa -exportOptionsPlist ExportOptions.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - a098155513269@gmail.com
