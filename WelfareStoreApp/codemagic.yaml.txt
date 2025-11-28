@@ -1,0 +1,23 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 60
+    environment:
+      vars:
+        FLAVOR: "prod"
+    scripts:
+      - name: Install dependencies
+        script: |
+          echo "No dependencies to install"
+      - name: Build app
+        script: |
+          # 如果你有 Xcode 專案檔
+          xcodebuild -project WelfareStoreApp.xcodeproj -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean build
+          # 如果你使用 workspace 改成：
+          # xcodebuild -workspace WelfareStoreApp.xcworkspace -scheme WelfareStoreApp -sdk iphoneos -configuration Release clean build
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - a098155513269@gmail.com
