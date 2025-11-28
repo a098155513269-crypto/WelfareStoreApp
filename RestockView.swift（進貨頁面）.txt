@@ -1,0 +1,27 @@
+import SwiftUI
+
+struct RestockView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var vm: StoreViewModel
+    var product: Product
+    
+    @State private var quantity = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("進貨：\(product.name)").font(.title2)
+            TextField("數量", text: $quantity)
+                .keyboardType(.numberPad)
+                .textFieldStyle(.roundedBorder)
+
+            Button("確認進貨") {
+                if let qty = Int(quantity) {
+                    vm.restock(product: product, amount: qty)
+                    dismiss()
+                }
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding()
+    }
+}
